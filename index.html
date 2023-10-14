@@ -30,11 +30,34 @@
     </header>
 
     <main class="container">
-        <aside>
-            <h1>Our products</h1>
-            <section></section>
+        <aside class = "categories">
+            <h1 class = "categories_title">Categories</h1>
+            <section class = "categories_items">
+                <button class = "active">Categories</button>
+                <button>Categories</button>
+                <button>Categories</button>
+                <button>Categories</button>
+                <button>Categories</button>
+                <button>Categories</button>
+            </section>
         </aside>
-        <section>product</section>
+        <section class = "products">
+            <div class = "product_item on_sale">
+                <img src = "./images/iphone-11.jpg" />
+                <p class="product_name">Iphone 11</p>
+                <p class = "product_description">Lorem ipsum dolor sit amet consectetur 
+                    adipisicing elit. Quibusdam debitis nam dignissimos laboriosam aperiam, 
+                    vitae pariatur quis illum molestias iste!</p>
+                    <div class="product_price">
+                        <span class="price">2999.99</span>
+                        <span class="price_sale"> 2750.00</span>
+                    </div>
+                <button class="add_to_basket">Add to cart</button>
+                
+                <p class="product_item_sale_info">Sale</p>
+            </div>
+        </section>
+
     </main>
     <script src = "products.js"></script>
     <script src="main.js"></script>
