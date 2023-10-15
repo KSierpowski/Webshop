@@ -1,9 +1,29 @@
-
 let currentProducts = products;
 let categories = new Set();
+let addToBasketButtons;
+
 const basket = [];
 
 const productsSection = document.querySelector(".products");
+
+
+const addToBasket = (e) => {
+    const selectedID = parseInt(e.target.dataset.id); //po kliknięciu znajduje id produktu
+
+    const key = currentProducts.findIndex((product) => product.id === selectedID);
+
+    basket.push(currentProducts[key]);
+
+    const basketTotal = basket.reduce((sum, product) => { return sum += product.price}, 0); //sumuje ceny
+
+    basketTotal > 0
+    ? basketClearBtn.classList.add("active") 
+    : basketClearBtn.classList.remove("active");
+
+    basketAmountSpan.innerHTML = `${basketTotal} zł`; //cena zamiast Cart
+};
+
+
 const renderProducts = (items) => {
     productsSection.innerHTML = "";
     for (let i=0; i < items.length; i++) {
@@ -22,6 +42,10 @@ const renderProducts = (items) => {
         <p class="product_item_sale_info">Sale</p>`;
     productsSection.appendChild(newProduct); //Dodaje nowo utworzony element div do sekcji produktów na stronie internetowej, umieszczając go wewnątrz tej sekcji.
 }
+addToBasketButtons = document.querySelectorAll(".add_to_basket");
+addToBasketButtons.forEach((btn) =>
+  btn.addEventListener("click", addToBasket)
+);
 };
 
 const renderCategories = (items) => {
@@ -97,22 +121,15 @@ searchBarInput.addEventListener("input", (e) => {
     renderProducts(foundProducts);
 });
 
+const basketClearBtn = document.querySelector(".basket_clear_button");
+const basketAmountSpan = document.querySelector(".basket_amount"); 
 
-const addToBasketButtons = document.querySelectorAll(".add_to_basket");
 
-const addToBasket = (e) => {
-    const selectedID = parseInt(e.target.dataset.id); //po kliknięciu znajduje id produktu
+    const clearBasket = () => {
+         basketAmountSpan.innerHTML = "Cart";
+         basket = [];
+    };
 
-    const key = currentProducts.findIndex((product) => product.id === selectedID);
+basketClearBtn.addEventListener("click", clearBasket);
 
-    basket.push(currentProducts.at(key));
-
-    const basketTotal = basket.reduce((sum, product) => { return sum += product.price}, 0); //sumuje ceny
-
-    const basketAmountSpan = document.querySelector(".basket_amount"); 
-
-    basketAmountSpan.innerHTML = `${basketTotal} zł`; //cena zamiast Cart
-
-    console.log(basketTotal);
-};
 addToBasketButtons.forEach((button) => button.addEventListener("click",addToBasket)); 

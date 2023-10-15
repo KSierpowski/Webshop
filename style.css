@@ -68,6 +68,20 @@ margin-right: 10px;
     
 }
 
+.basket_clear_button{
+    display:none;
+    background: none;
+    color: yellow;
+    border:none;
+    font-size: 17px;
+    align-self: start;
+    cursor: pointer;
+}
+
+.basket_clear_button.active{
+    display: block;
+}
+
 .categories {
     display: flex;
     flex-direction: column;
