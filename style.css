@@ -16,6 +16,9 @@ header{
     color: white;
     padding: 30px;
     display: flex;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
 }
 
 .header_title{ 
