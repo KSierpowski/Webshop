@@ -1,9 +1,10 @@
 
-const currentProducts = products;
+let currentProducts = products;
 let categories = new Set();
 
 const productsSection = document.querySelector(".products");
 const renderProducts = (items) => {
+    productsSection.innerHTML = "";
     for (let i=0; i < items.length; i++) {
         const newProduct = document.createElement("div"); //Tworzy nowy element HTML typu div, który zostanie użyty do reprezentacji produktu na stronie.
         newProduct.className = `product_item ${items[i].sale ? "on_sale" : ""}`; //Nadaje nowemu elementowi klasę CSS "product_item". Jeśli dany produkt jest w sprzedaży (czyli ma ustawioną wartość sale na true), to nadaje również klasę "on_sale", co pozwoli na zastosowanie odpowiednich stylów CSS do produktu w sprzedaży.
@@ -37,6 +38,7 @@ for (let i = 0; i < items.length; i++) {
     categories.forEach((category, index) => {
         const newCategory = document.createElement("button"); //Tworzy nowy element HTML typu button
         newCategory.innerHTML = category; 
+        newCategory.dataset.category = category; //dodaje do buttona w html category 
 
         index === 0? newCategory.classList.add("active") : ""; //Wybrany jest button z indexem 0
 
@@ -51,3 +53,25 @@ document.onLoad = renderProducts(currentProducts);
 //odpala przy starcie strony
 
 
+const categoriesButtons = document.querySelectorAll(".categories_items button");
+
+categoriesButtons.forEach((button) =>    //tworzy tablice tylko z kategorią którą wybraliśmy
+    button.addEventListener("click", (e) => {
+        const category = e.target.dataset.category;
+        categoriesButtons.forEach((button) => button.classList.remove("active"));
+        e.target.classList.add("active");
+
+        currentProducts = products;   //przed zmiana kategori tablica zmiania sie na "wszystlkie" i z nich wybiera konkretnie wybrane
+
+        if(category === "all products") {
+            currentProducts = products;
+        } else {
+            currentProducts = currentProducts.filter(
+                (product) => product.category=== category
+                );
+            }
+            
+            console.log(currentProducts);
+            renderProducts(currentProducts);
+    })
+);
