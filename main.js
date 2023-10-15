@@ -70,8 +70,28 @@ categoriesButtons.forEach((button) =>    //tworzy tablice tylko z kategoriÄ… ktÃ
                 (product) => product.category=== category
                 );
             }
-            
-            console.log(currentProducts);
             renderProducts(currentProducts);
     })
 );
+
+
+const searchBarInput = document.querySelector(".search_bar input");
+
+searchBarInput.addEventListener("input", (e) => {
+    const search = e.target.value;
+
+    const foundProducts = currentProducts.filter((product) =>{
+        if (product.name.toLowerCase().includes(search.toLowerCase())) {
+            return product;
+        }
+    })
+
+    const emptyState = document.querySelector(".empty_state");
+
+    foundProducts.length === 0 
+    ? emptyState.classList.add("active") 
+    : emptyState.classList.remove("active");
+
+
+    renderProducts(foundProducts);
+});

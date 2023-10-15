@@ -193,7 +193,15 @@ margin-right: 10px;
 .product_item.on_sale .price_sale{
     display:block;
 }
-
+.empty_state{
+    display:none;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 50px;
+}
+.empty_state.active {
+    display: block;
+}
 .add_to_basket {
     background: black;
     color: white;
