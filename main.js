@@ -1,5 +1,6 @@
 
 const currentProducts = products;
+let categories = new Set();
 
 const productsSection = document.querySelector(".products");
 const renderProducts = (items) => {
@@ -11,16 +12,42 @@ const renderProducts = (items) => {
         <p class="product_name">${items[i].name}</p>
         <p class = "product_description">${items[i].description}</p>
             <div class="product_price">
-                <span class="price">${items[i].price.toFixed(2)}</span>
-                <span class="price_sale"> ${(items[i].price - items[i].saleAmount).toFixed(2)}</span>
+                <span class="price">${items[i].price.toFixed(2)} zł</span>
+                <span class="price_sale"> ${(items[i].price - items[i].saleAmount).toFixed(2)} zł</span>
             </div>
         <button class="add_to_basket">Add to cart</button>
         
         <p class="product_item_sale_info">Sale</p>`;
     productsSection.appendChild(newProduct); //Dodaje nowo utworzony element div do sekcji produktów na stronie internetowej, umieszczając go wewnątrz tej sekcji.
-
-
 }
 };
+
+const renderCategories = (items) => {
+//Set bo nie będą się potwarzać kategorie
+for (let i = 0; i < items.length; i++) {
+    categories.add(items[i].category);
+}
+
+   const categoriesItems = document.querySelector(".categories_items"); 
+
+    
+    
+    categories = ['all products',...categories]; //zmieniło set na tablice
+
+    categories.forEach((category, index) => {
+        const newCategory = document.createElement("button"); //Tworzy nowy element HTML typu button
+        newCategory.innerHTML = category; 
+
+        index === 0? newCategory.classList.add("active") : ""; //Wybrany jest button z indexem 0
+
+        categoriesItems.appendChild(newCategory); 
+    });
+};
+
+
+
+document.onLoad = renderCategories(currentProducts);
 document.onLoad = renderProducts(currentProducts);
 //odpala przy starcie strony
+
+
